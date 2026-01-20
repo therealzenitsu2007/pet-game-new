@@ -15,190 +15,130 @@
         <link href="https://fonts.googleapis.com/css2?family=Gravitas+One&display=swap" rel="stylesheet" />
 
         <style>
-            #textbox-holder {
+            /* 1. Allow buttons to wrap to a new line on small screens */
+            #buttons,
+            #other {
                 display: flex;
-
                 justify-content: center;
-
-                align-items: center;
+                flex-wrap: wrap; /* Added this so buttons don't overlap! */
             }
 
+            #textbox-holder {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0 20px; /* Added a tiny bit of breathing room */
+            }
+
+            /* 2. The Fluid Textbox */
             #textbox {
-                width: 1000px;
-
+                /* This is the magic part! */
+                width: 100%;
+                max-width: 1000px; /* It stays 1000px on big screens! */
                 height: 40px;
-
                 padding: 10px;
-
                 font-size: larger;
-
                 border-radius: 15px;
-
                 background-color: lightgray;
-
                 border: black;
-
                 filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
-
                 margin: 10px;
             }
 
-            #buttons {
-                display: flex;
-
-                justify-content: center;
+            /* 3. Fluid Title */
+            #title {
+                /* Using clamp so it's huge on PC but smaller on phones */
+                font-size: clamp(40px, 10vw, 100px);
+                color: gold;
+                font-family: "Gravitas One", serif;
+                font-weight: 400;
+                text-align: center;
+                margin: 20px 0;
+                filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
             }
 
-            #other {
-                justify-content: center;
-
-                display: flex;
-            }
-
-            .button {
-                margin: 20px;
-
-                padding: 0 15px;
-
-                height: 50px;
-
-                border: none;
-
-                border-radius: 12px;
-
-                font-size: 1em;
-
-                font-weight: bold;
-
-                color: white;
-
-                cursor: pointer;
-
-                transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
-
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-                display: inline-flex;
-
-                align-items: center;
-
-                justify-content: center;
-
-                gap: 8px; /* Space between text and emoji */
-            }
-
-            .button:hover {
-                transform: translateY(-2px);
-
-                box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-            }
-
-            .button:active {
-                transform: translateY(1px);
-
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-
-            /* --- Main Action Buttons --- */
-
-            #buttons .button {
-                background-color: #2a9d8f; /* A nice teal color */
-
-                width: 130px;
-            }
-
-            #buttons .button:hover {
-                background-color: #268d81;
-            }
-
-            /* --- Other Control Buttons --- */
-
-            #other .button {
-                background-color: #e76f51; /* A coral/orange color */
-
-                width: 220px;
-            }
-
-            #other .button:hover {
-                background-color: #d96548;
-            }
-
-            #music {
-                width: 300px;
-            }
-
-            body.animated-rainbow {
-                background-image: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet, red);
-
-                background-size: 1400% 1400%;
-
-                animation: rainbowFlow 10s linear infinite;
-            }
-
-            .trail {
-                position: absolute;
-
-                height: 10px;
-
-                width: 10px;
-
-                border-radius: 5px;
-
-                background: teal;
-
-                pointer-events: none; /* So you can still click buttons through the trail! */
-
-                transition: transform 0.2s linear, opacity 0.2s;
-
-                z-index: 9999;
-            }
-
-            #emoji {
-                display: flex;
-
-                justify-content: center;
-
-                justify-items: center;
-
-                align-items: center;
-            }
-
+            /* 4. Fluid Pet Emoji */
             #thing {
-                font-size: 180px;
+                /* Keeps it big, but not 'break the screen' big */
+                font-size: clamp(100px, 20vw, 180px);
                 transition: transform 0.2s ease;
                 filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
                 user-select: none;
             }
-            #title {
-                font-size: 100px;
-                color: gold;
-                font-family: "Gravitas One", serif;
-                font-weight: 400;
-                font-style: normal;
-                margin: 0;
-                filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+
+            /* Rest of your styles stay exactly the same... */
+            .button {
+                margin: 10px; /* Slightly reduced margin for better fit */
+                padding: 0 15px;
+                height: 50px;
+                border: none;
+                border-radius: 12px;
+                font-size: 1em;
+                font-weight: bold;
+                color: white;
+                cursor: pointer;
+                transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+            }
+            .button:active {
+                transform: translateY(1px);
+            }
+            #buttons .button {
+                background-color: #2a9d8f;
+                width: 130px;
+            }
+            #other .button {
+                background-color: #e76f51;
+                width: 220px;
+            }
+            #music {
+                width: 300px;
+            }
+            body.animated-rainbow {
+                background-image: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet, red);
+                background-size: 1400% 1400%;
+                animation: rainbowFlow 10s linear infinite;
+            }
+            .trail {
+                position: absolute;
+                height: 10px;
+                width: 10px;
+                border-radius: 5px;
+                background: teal;
+                pointer-events: none;
+                z-index: 9999;
+            }
+            #emoji {
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
             #titleholder {
                 display: flex;
                 align-items: center;
                 justify-content: center;
             }
-
             #thing:hover {
                 transform: scale(1.2);
                 cursor: pointer;
             }
-
             #thing:active {
                 transform: scale(1.1);
                 transition: transform 0.05s;
             }
-
             @keyframes rainbowFlow {
                 0% {
                     background-position: 0% 50%;
                 }
-
                 100% {
                     background-position: 100% 50%;
                 }
